@@ -54,6 +54,9 @@ interface ODRequest {
   status: 'Pending' | 'Approved' | 'Rejected'
   reason: string
   link: string
+  studentName?: string
+  studentYear?: string
+  studentSection?: string
   studentId?: number
   approval?: ApprovalTracking
 }
@@ -660,6 +663,15 @@ function showApplyOD(student: Student) {
           box-shadow:0 8px 25px rgba(0,0,0,0.08);
         ">
 
+          <label>Student Name</label>
+          <input id="studentName" type="text" class="login-input" placeholder="Enter student name" />
+
+          <label>Class / Year</label>
+          <input id="studentYear" type="text" class="login-input" placeholder="Enter class / year" />
+
+          <label>Section</label>
+          <input id="studentSection" type="text" class="login-input" placeholder="Enter section" />
+
           <div style="
             display:grid;
             grid-template-columns:1fr 1fr;
@@ -742,6 +754,13 @@ function showApplyOD(student: Student) {
 
   document.querySelector('#submitODBtn')!
     .addEventListener('click', async () => {
+      const studentName =
+        (document.querySelector('#studentName') as HTMLInputElement).value.trim()
+      const studentYear =
+        (document.querySelector('#studentYear') as HTMLInputElement).value.trim()
+      const studentSection =
+        (document.querySelector('#studentSection') as HTMLInputElement).value.trim()
+
       const fromDate =
         (document.querySelector('#fromDate') as HTMLInputElement).value
       const toDate =
@@ -764,7 +783,7 @@ function showApplyOD(student: Student) {
         return
       }
 
-      if (!fromDate || !toDate || !fromTime || !toTime || !event || !venue || !link || !reason) {
+      if (!studentName || !studentYear || !studentSection || !fromDate || !toDate || !fromTime || !toTime || !event || !venue || !link || !reason) {
         showMessage('odMessage', 'Please fill all required details.')
         return
       }
@@ -801,8 +820,11 @@ function showApplyOD(student: Student) {
           to_time: toTime,
           no_of_days: noOfDays,
           reason,
-          poster_link: link
-        })
+          poster_link: link,
+          student_name: studentName,
+          student_year: studentYear,
+          student_section: studentSection
+        } as any)
 
         console.log('OD SUBMIT RESPONSE:', result)
 
@@ -853,6 +875,9 @@ function normalizeODRequest(request: any): ODRequest {
     status: request.status ?? 'Pending',
     reason: request.reason ?? '',
     link: request.link ?? request.poster_link ?? '',
+    studentName: request.studentName ?? request.student_name ?? '',
+    studentYear: request.studentYear ?? request.student_year ?? '',
+    studentSection: request.studentSection ?? request.student_section ?? '',
     studentId: Number(request.studentId ?? request.student_id ?? request.student ?? 0) || undefined,
     approval: request.approval ?? request.approvals ?? undefined
   }
@@ -1666,6 +1691,9 @@ async function showPendingODRequests(staff: Staff) {
                     <div style="display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;">
                       <div>
                         <h3 style="margin-top:0;">${request.event}</h3>
+                        <p>👤 <strong>Student Name:</strong> ${request.studentName || '-'}</p>
+                        <p>🎓 <strong>Class / Year:</strong> ${request.studentYear || '-'}</p>
+                        <p>👥 <strong>Section:</strong> ${request.studentSection || '-'}</p>
                         <p>📅 ${request.fromDate} → ${request.toDate}</p>
                         <p>⏰ ${request.fromTime} - ${request.toTime}</p>
                         <p>📍 ${request.venue}</p>

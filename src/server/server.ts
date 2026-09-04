@@ -124,7 +124,10 @@ app.post('/student/apply-od/', async (req, res) => {
       to_date,
       no_of_days,
       reason,
-      poster_link
+      poster_link,
+      student_name,
+      student_year,
+      student_section
     } = req.body
 
     console.log('APPLY OD:', {
@@ -142,7 +145,10 @@ app.post('/student/apply-od/', async (req, res) => {
       !from_date ||
       !to_date ||
       no_of_days === undefined ||
-      !reason
+      !reason ||
+      !student_name ||
+      !student_year ||
+      !student_section
     ) {
       return res.status(400).json({
         message: 'Required OD details are missing'
@@ -162,7 +168,10 @@ app.post('/student/apply-od/', async (req, res) => {
         reason: String(reason),
         status: 'Pending',
         created_at: new Date().toISOString(),
-        poster_link: poster_link ? String(poster_link) : null
+        poster_link: poster_link ? String(poster_link) : null,
+        student_name: String(student_name).trim(),
+        student_year: String(student_year).trim(),
+        student_section: String(student_section).trim()
       })
       .select()
       .single()
