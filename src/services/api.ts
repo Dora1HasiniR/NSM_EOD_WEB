@@ -3,7 +3,7 @@ import axios from "axios";
 // Local backend used by the Vite frontend during development.
 // server.ts is running on http://localhost:5000 and its routes
 // already start with /student/... and /staff/....
-export const API_BASE_URL = "http://localhost:5000";
+export const API_BASE_URL = "https://nsm-eod-web.onrender.com";
 
 const API = axios.create({
   baseURL: API_BASE_URL,
