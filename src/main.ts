@@ -952,6 +952,9 @@ async function showODHistory(student: Student) {
                   <div style="display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;">
                     <div>
                       <h3 style="margin:0 0 8px;">${request.event}</h3>
+                      <p style="margin:5px 0;">👤 <strong>Student Name:</strong> ${request.studentName || '-'}</p>
+                      <p style="margin:5px 0;">🎓 <strong>Class / Year:</strong> ${request.studentYear || '-'}</p>
+                      <p style="margin:5px 0;">👥 <strong>Section:</strong> ${request.studentSection || '-'}</p>
                       <p style="margin:5px 0;">📅 ${request.fromDate} → ${request.toDate}</p>
                       <p style="margin:5px 0;">⏰ ${request.fromTime} - ${request.toTime}</p>
                       <p style="margin:5px 0;">📍 ${request.venue}</p>
@@ -1713,6 +1716,7 @@ async function showPendingODRequests(staff: Staff) {
                         <p>📅 ${request.fromDate} → ${request.toDate}</p>
                         <p>⏰ ${request.fromTime} - ${request.toTime}</p>
                         <p>📍 ${request.venue}</p>
+                        ${request.link ? `<p>🔗 <a href="${request.link}" target="_blank" rel="noopener noreferrer">Event / Application Link</a></p>` : ''}
                         <p>📝 ${request.reason}</p>
                         ${approvalTrackingHTML(getApprovalTracking(request))}
                       </div>
