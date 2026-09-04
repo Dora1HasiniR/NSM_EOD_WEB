@@ -54,6 +54,9 @@ export async function applyOD(data: {
   no_of_days: number;
   reason: string;
   poster_link: string;
+  student_name: string;
+  student_year: string;
+  student_section: string;
 }) {
   try {
     const response = await API.post("/student/apply-od/", data);

@@ -320,7 +320,13 @@ function showRoleSelection() {
 
         <div class="logo">🎓</div>
 
-        <h1>EOD Management System</h1>
+        <h1 style="
+          font-weight:900;
+          line-height:1.25;
+          margin-bottom:12px;
+        ">
+          Welcome to NSM_EOD : A Digital On Duty Platform
+        </h1>
 
         <p class="subtitle">
           Who are you?
@@ -339,6 +345,16 @@ function showRoleSelection() {
         >
           👤 Staff
         </button>
+
+        <p style="
+          margin:20px 0 0;
+          text-align:center;
+          font-size:13px;
+          font-weight:600;
+          color:#64748b;
+        ">
+          © 2026 Dora Hasini's NSM EOD. All Rights Reserved.
+        </p>
 
       </div>
     </div>
